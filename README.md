@@ -35,7 +35,12 @@ your-project-name/
 ├── datasets/
 │   ├── mini/          # Place miniImageNet here
 │   ├── tiered/        # Place tieredImageNet here
-│   ├── cifarfs/       # Place CIFAR-FS here
-│   └── fc100/         # Place FC100 here
+│   ├── cifar_fs/       # Place CIFAR-FS here
+│   └── FC100/         # Place FC100 here
 ├── ...
 ```
+
+##Acknowledgment
+We thank the following repos providing helpful components/functions in our work.
+
+[FEAT](https://github.com/Sha-Lab/FEAT), [FewTURE](https://github.com/mrkshllr/FewTURE), [CPEA](https://github.com/FushengHao/CPEA)
