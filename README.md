@@ -1,5 +1,5 @@
 # F2SST
-Code for F2SST: Frequency-to-Spatial Semantic Transfer for Few-Shot Image Classification
+Code for **F2SST: Frequency-to-Spatial Semantic Transfer for Few-Shot Image Classification.**
 
 ## Datasets
 We use four standard few-shot learning benchmarks. Please prepare the datasets as follows:
@@ -39,6 +39,15 @@ your-project-name/
 │   └── FC100/         # Place FC100 here
 ├── ...
 ```
+
+## Backbone Pre-training
+We use a pre-trained ViT-small backbone. Please follow the instructions in FewTURE to obtain the model.
+
+Save the pre-trained weights to the directory of the specific dataset you are using:
+
+./initialization/{dataset}/
+
+Note: Please replace {dataset} with the actual dataset name (e.g., mini, tiered, cifarfs, or fc100).
 
 ## Acknowledgment
 We thank the following repos providing helpful components/functions in our work.
