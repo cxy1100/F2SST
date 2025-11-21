@@ -73,6 +73,12 @@ dense_predict_network = F2SST(
     )
 ```
 
+The expected output after successful execution is shown in
+```
+f2sst-mini-5way-1shot.txt
+f2sst-mini-5way-5shot.txt
+```
+
 ## Acknowledgment
 We thank the following repos providing helpful components/functions in our work.
 
