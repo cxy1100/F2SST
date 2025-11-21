@@ -55,19 +55,15 @@ class GatedSpectralAttention(nn.Module):
 
 
 class F2SST(nn.Module):
-    def __init__(self, in_dim=384, use_fft=True, use_attention=True, use_fusion=True, freq_strategy='all'):
+    def __init__(self, in_dim=384, freq_strategy='all'):
         super(F2SST, self).__init__()
-        self.use_fft = use_fft
-        self.use_attention = use_attention
-        self.use_fusion = use_fusion
         self.freq_strategy = freq_strategy
 
         self.fc1 = Mlp(in_features=in_dim, hidden_features=in_dim // 4, out_features=in_dim)
         self.fc_norm1 = nn.LayerNorm(in_dim)
         self.fc2 = Mlp(in_features=196 ** 2, hidden_features=256, out_features=1)
 
-        if self.use_attention:
-            self.freq_attention = GatedSpectralAttention(dim=in_dim)
+        self.freq_attention = GatedSpectralAttention(dim=in_dim)
 
     def fft_process(self, x):
         B, N, C = x.shape
@@ -108,17 +104,14 @@ class F2SST(nn.Module):
         B, N, C = feat_query.shape
         H = W = int((N - 1) ** 0.5)
 
-        if self.use_fft:
-            feat_query = self.fft_process(feat_query)
-            feat_shot = self.fft_process(feat_shot)
+        feat_query = self.fft_process(feat_query)
+        feat_shot = self.fft_process(feat_shot)
 
-        if self.use_attention:
-            feat_query = self.freq_attention(feat_query)
-            feat_shot = self.freq_attention(feat_shot)
+        feat_query = self.freq_attention(feat_query)
+        feat_shot = self.freq_attention(feat_shot)
 
-        if self.use_fusion:
-            feat_query = self.fc1(torch.mean(feat_query, dim=1, keepdim=True)) + feat_query
-            feat_shot = self.fc1(torch.mean(feat_shot, dim=1, keepdim=True)) + feat_shot
+        feat_query = self.fc1(torch.mean(feat_query, dim=1, keepdim=True)) + feat_query
+        feat_shot = self.fc1(torch.mean(feat_shot, dim=1, keepdim=True)) + feat_shot
 
         feat_query = self.fc_norm1(feat_query)
         feat_shot = self.fc_norm1(feat_shot)
