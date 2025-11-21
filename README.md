@@ -41,13 +41,37 @@ your-project-name/
 ```
 
 ## Backbone Pre-training
-We use a pre-trained ViT-small backbone. Please follow the instructions in FewTURE to obtain the model.
+We use a pre-trained ViT-small backbone. Please follow the instructions in [FewTURE](https://github.com/mrkshllr/FewTURE/tree/main) to obtain the model.
 
 Save the pre-trained weights to the directory of the specific dataset you are using:
 
 ./initialization/{dataset}/
 
 Note: Please replace {dataset} with the actual dataset name (e.g., mini, tiered, cifarfs, or fc100).
+
+## Start
+1. **Get miniImageNet Dataset**:
+   - Visit [FewTURE Repository](https://github.com/mrkshllr/FewTURE/tree/main)
+   - Download the miniImageNet dataset files
+   - Place them in the corresponding data folder of this project
+
+2. **Get Pre-trained ViT-small Model**:
+   - Download the pre-trained ViT-small weights from the same repository
+   - Place them in the corresponding model folder of this project
+
+After completing the above preparations, execute in bash terminal:
+
+```bash
+./run.sh
+```
+
+If you want to test different frequency strategies, modify the following line in main.py:
+
+```
+dense_predict_network = F2SST(
+        freq_strategy = 'low' # ← Modify this parameter(all, low, high, center_block, band )
+    )
+```
 
 ## Acknowledgment
 We thank the following repos providing helpful components/functions in our work.
