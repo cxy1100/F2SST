@@ -38,13 +38,10 @@ if __name__ == '__main__':
     parser.add_argument('--step_size', type=int, default=5)
     parser.add_argument('--gamma', type=float, default=0.5)
     parser.add_argument('--model_type', type=str, default='small')
-    parser.add_argument('--dataset', type=str, default='tieredimagenet')
-    parser.add_argument('--init_weights', type=str, default='./initialization/tieredImageNet/checkpoint0800.pth')
+    parser.add_argument('--dataset', type=str, default='MiniImageNet')
+    parser.add_argument('--init_weights', type=str, default='./initialization/miniimagenet/checkpoint1600.pth')
     parser.add_argument('--gpu', default='2')
-    parser.add_argument('--exp', type=str, default='f2snet')
-    parser.add_argument('--use_fft', type=lambda x: x.lower() == 'true', default=True)
-    parser.add_argument('--use_attention', type=lambda x: x.lower() == 'true', default=True)
-    parser.add_argument('--use_fusion', type=lambda x: x.lower() == 'true', default=True)
+    parser.add_argument('--exp', type=str, default='f2sst')
 
     args = parser.parse_args()
     pprint(vars(args))
@@ -74,9 +71,6 @@ if __name__ == '__main__':
 
     model = BackBone(args)
     dense_predict_network = F2SST(
-        use_fft=args.use_fft,
-        use_attention=args.use_attention,
-        use_fusion=args.use_fusion,
         freq_strategy = 'low'
     )
 
